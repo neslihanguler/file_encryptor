@@ -9,6 +9,10 @@
 void nes_encrypt(const char *filename, const char *password);
 void nes_decrypt(const char *filename, const char *password);
 
+int derive_encryption_key(unsigned char * const key, unsigned long long keylen,
+                           const char * const passwd, unsigned long long passwdlen,
+                           const unsigned char * const salt);
+
 void calc_nonce (unsigned char *nonce, unsigned char *seed, uint64_t seq_number);
 
 #define CHUNK_SIZE 4096
@@ -65,6 +69,19 @@ void nes_encrypt(const char *source, const char *password) {
     unsigned char cipher[CHUNK_SIZE + crypto_aead_xchacha20poly1305_ietf_ABYTES]; //cipher text + mac
     FILE *fp_s, *fp_d;
     
+    /*  We need to derive a key from the given password. I decided to use Argon2 function of libsodium which provides
+        a password hashing scheme through the use of an unpredictable salt. I append this salt value,
+        which will be needed in decryption, to the beginning of encrypted text.
+     */
+    unsigned char salt[crypto_pwhash_SALTBYTES];
+    randombytes_buf(salt, sizeof salt);
+    
+    unsigned char key[crypto_aead_xchacha20poly1305_ietf_KEYBYTES];
+    if (derive_encryption_key(key, sizeof key, password, strlen(password), salt) < 0 ) {
+        printf("Key not derived successfully!");
+        exit(0);
+    };
+    
     char target[33];
     bzero(target, 33);
     sprintf(target, "%s.nes", source);
@@ -72,7 +89,11 @@ void nes_encrypt(const char *source, const char *password) {
     fp_s = fopen(source, "rb");
     fp_d = fopen(target, "wb");
     
-    //create a random 24-byte nonce (seed) value and write it at the beginning of destination file
+    fwrite(salt, 1, crypto_pwhash_SALTBYTES, fp_d);
+    
+    /* Similarly I need a nonce value for AEAD cipher. It should be unique for each data chunk.
+       I'll increment it after each use to provide uniqueness. The initial value will be appended
+       to the beginning of encrypted text. */
     unsigned char seed[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES];
     randombytes_buf(seed, sizeof seed); /* 192-bits nonce */
     fwrite(seed, 1, crypto_aead_xchacha20poly1305_ietf_NPUBBYTES, fp_d);
@@ -110,6 +131,16 @@ void nes_encrypt(const char *source, const char *password) {
 void nes_decrypt(const char *source, const char *password) {
     
     return;
+}
+
+int derive_encryption_key(unsigned char * const key, unsigned long long keylen,
+                           const char * const passwd, unsigned long long passwdlen,
+                           const unsigned char * const salt) {
+    
+    int ret = crypto_pwhash(key, keylen, passwd, passwdlen, salt, crypto_pwhash_OPSLIMIT_MODERATE, crypto_pwhash_MEMLIMIT_INTERACTIVE, crypto_pwhash_ALG_DEFAULT);
+    
+    return ret;
+    
 }
 
 
