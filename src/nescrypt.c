@@ -9,6 +9,8 @@
 void nes_encrypt(const char *filename, const char *password);
 void nes_decrypt(const char *filename, const char *password);
 
+void calc_nonce (unsigned char *nonce, unsigned char *seed, uint64_t seq_number);
+
 #define CHUNK_SIZE 4096
 
 int main(int argc , char *argv[]) 
@@ -70,18 +72,20 @@ void nes_encrypt(const char *source, const char *password) {
     fp_s = fopen(source, "rb");
     fp_d = fopen(target, "wb");
     
-    //create a random 24-byte nonce value and write it at the beginning of destination file
-    unsigned char nonce[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES];
-    randombytes_buf(nonce, sizeof nonce); /* 192-bits nonce */
-    fwrite(nonce, 1, crypto_aead_xchacha20poly1305_ietf_NPUBBYTES, fp_d);
+    //create a random 24-byte nonce (seed) value and write it at the beginning of destination file
+    unsigned char seed[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES];
+    randombytes_buf(seed, sizeof seed); /* 192-bits nonce */
+    fwrite(seed, 1, crypto_aead_xchacha20poly1305_ietf_NPUBBYTES, fp_d);
     
-    uint32_t counter = 0;
+    uint64_t seq_number = 0;
     int rlen;
     unsigned long long clen;
     
     do {
         rlen = fread(read_buf, 1, sizeof read_buf, fp_s);
         unsigned long long mlen = rlen;
+        unsigned char nonce[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES];
+        calc_nonce(nonce, seed, seq_number);
         crypto_aead_xchacha20poly1305_ietf_encrypt(cipher, &clen, (const unsigned char *)read_buf, rlen,
                                                    NULL, 0, NULL, nonce, (const unsigned char *)password);
         if (clen != mlen + crypto_aead_xchacha20poly1305_ietf_abytes()) {
@@ -91,8 +95,12 @@ void nes_encrypt(const char *source, const char *password) {
             return;
         } else {
             fwrite(cipher, 1, (size_t) clen, fp_d);
+            seq_number++;
         }
     } while(!feof(fp_s));
+    
+    fclose(fp_s);
+    fclose(fp_d);
     
     printf("\n%s encrypted and saved in %s", source, target);
     
@@ -103,4 +111,20 @@ void nes_decrypt(const char *source, const char *password) {
     
     return;
 }
+
+
+/* Cryptographic security of xchacha20poly1305 AEAD algorithm depends on use of unique nonce
+   values for distinct messages. Same nonce should never be reused with the same key.
+   I decided to create a random nonce value for encrypting first block and then increment nonce
+   for each subsequent data block.
+*/
+void calc_nonce (unsigned char *nonce, unsigned char *seed, uint64_t seq_number) {
+    
+    memcpy(nonce, seed, crypto_aead_xchacha20poly1305_ietf_NPUBBYTES);
+    unsigned char sequence[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES] = {'\0'};
+    int position = crypto_aead_xchacha20poly1305_ietf_NPUBBYTES - sizeof(seq_number);
+    memcpy(sequence + position, &seq_number, sizeof(seq_number)); //copy sequence number to last 8 bytes
+    sodium_add(nonce, (const unsigned char *)sequence, sizeof(sequence)); //add two little endian big numbers
+}
+
 
