@@ -31,6 +31,7 @@ int main(int argc , char *argv[])
     }
     
     bzero(filename, 30);
+    bzero(password, 30);
     
     int position = 0;
     while (optind < argc) {
@@ -41,6 +42,7 @@ int main(int argc , char *argv[])
                 break;
             case 1:
                 strncpy(password, arg, strlen(arg));
+                break;
             default:
                 perror("unknown argument");
                 break;
@@ -48,8 +50,17 @@ int main(int argc , char *argv[])
         optind++;
         position++;
     }
+    
+    if (position != 2) {
+        printf("Command line parameters are not accurate\n");
+        printf("Usage:\n");
+        printf("./nescrypt -c <file_name> <password> -> encrypt file\n");
+        printf("./nescrypt <file_name> <password> -> decrypt file (.nes extension)\n");
+        exit(0);
+    }
 
-    printf("filename: %s\npassword: %s", filename, password);
+    printf("filename: %s\n", filename);
+    //printf("password: %s\n", password);
     
     if (encryptor) {
         nes_encrypt(filename, password);
@@ -69,6 +80,7 @@ void nes_encrypt(const char *source, const char *password) {
     unsigned char cipher[CHUNK_SIZE + crypto_aead_xchacha20poly1305_ietf_ABYTES]; //cipher text + mac
     FILE *fp_s, *fp_t;
     
+    
     /*  We need to derive a key from the given password. I decided to use Argon2 function of libsodium which provides
         a password hashing scheme through the use of an unpredictable salt. I append this salt value,
         which will be needed in decryption, to the beginning of encrypted text.
@@ -78,7 +90,7 @@ void nes_encrypt(const char *source, const char *password) {
     
     unsigned char key[crypto_aead_xchacha20poly1305_ietf_KEYBYTES];
     if (derive_encryption_key(key, sizeof key, password, strlen(password), salt) < 0 ) {
-        printf("Encryption key not derived successfully!");
+        printf("Encryption key not derived successfully!\n");
         exit(0);
     };
     
@@ -88,6 +100,11 @@ void nes_encrypt(const char *source, const char *password) {
     
     fp_s = fopen(source, "rb");
     fp_t = fopen(target, "wb");
+    
+    if (!fp_s || !fp_t) {
+        printf("File error!\n");
+        exit(0);
+    }
     
     fwrite(salt, 1, crypto_pwhash_SALTBYTES, fp_t);
     
@@ -109,11 +126,11 @@ void nes_encrypt(const char *source, const char *password) {
         calc_nonce(nonce, seed, seq_number);
         if (crypto_aead_xchacha20poly1305_ietf_encrypt(cipher, &clen, (const unsigned char *)read_buf, rlen,
                                                        NULL, 0, NULL, nonce, (const unsigned char *)key) < 0) {
-            printf("\nEncryption Error!");
+            printf("\nEncryption Error!\n");
             goto end;
         };
         if (clen != mlen + crypto_aead_xchacha20poly1305_ietf_abytes()) {
-            printf("\nEncryption Error!");
+            printf("\nEncryption Error!\n");
             goto end;
         } else {
             fwrite(cipher, 1, (size_t) clen, fp_t);
@@ -121,7 +138,7 @@ void nes_encrypt(const char *source, const char *password) {
         }
     } while(!feof(fp_s));
     
-    printf("\n%s encrypted and saved in %s", source, target);
+    printf("\n%s encrypted and saved in %s\n", source, target);
     
 end:
     fclose(fp_s);
@@ -137,7 +154,7 @@ void nes_decrypt(const char *source, const char *password) {
     
     char target[30];
     bzero(target, 30);
-    ssize_t slen = sizeof(source);
+    ssize_t slen = strlen(source);
     for (int i = 0; i < slen - 4; i++) {
         target[i] = source[i];
     }
@@ -148,14 +165,14 @@ void nes_decrypt(const char *source, const char *password) {
     unsigned char salt[crypto_pwhash_SALTBYTES];
     int rlen = fread(salt, 1, crypto_pwhash_SALTBYTES, fp_s);
     if (rlen < crypto_pwhash_SALTBYTES) {
-        printf("File read error!");
+        printf("File read error!\n");
         goto end;
     }
     
     //derive dec key
     unsigned char key[crypto_aead_xchacha20poly1305_ietf_KEYBYTES];
     if (derive_encryption_key(key, sizeof key, password, strlen(password), salt) < 0 ) {
-        printf("Decryption key not derived successfully!");
+        printf("Decryption key not derived successfully!\n");
         exit(0);
     };
     
@@ -163,7 +180,7 @@ void nes_decrypt(const char *source, const char *password) {
     unsigned char seed[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES];
     rlen = fread(seed, 1, crypto_aead_xchacha20poly1305_ietf_NPUBBYTES, fp_s);
     if (rlen < crypto_aead_xchacha20poly1305_ietf_NPUBBYTES) {
-        printf("File read error!");
+        printf("File read error!\n");
         goto end;
     }
     
@@ -177,11 +194,11 @@ void nes_decrypt(const char *source, const char *password) {
         calc_nonce(nonce, seed, seq_number);
         if (crypto_aead_xchacha20poly1305_ietf_decrypt(plain, &mlen, NULL, (const unsigned char *)read_buf, rlen,
                                                        NULL, 0, nonce, (const unsigned char *)key) < 0) {
-            printf("\nDecryption Error!");
+            printf("\nDecryption Error!\n");
             goto end;
         };
         if (mlen != clen - crypto_aead_xchacha20poly1305_ietf_abytes()) {
-            printf("\nDecryption Error!");
+            printf("\nDecryption Error!\n");
             goto end;
         } else {
             fwrite(plain, 1, (size_t) mlen, fp_t);
@@ -189,7 +206,7 @@ void nes_decrypt(const char *source, const char *password) {
         }
     } while (!feof(fp_s));
     
-    printf("\n%s decrypted and saved in %s", source, target);
+    printf("\n%s decrypted and saved in %s\n", source, target);
     
 end:
     fclose(fp_s);
