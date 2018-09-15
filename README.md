@@ -2,17 +2,19 @@
 A simple command line program to encrypt/decrypt files
 
 # How to build:<br />
+```
 git clone https://github.com/neslihanguler/file_encryptor<br />
 cd file_encryptor/src<br />
 make<br />
+```
 
 # Usage:<br />
-./nescrypt -c <file_name> <password>  -> encrypt file  <br />
-./nescrypt <file_name> <password> -> decrypt file<br />
+`./nescrypt -c <file_name> <password>`  -> encrypt file  <br />
+`./nescrypt <file_name> <password>` -> decrypt file<br />
 
 # Sample Usage:<br />
-./nescrypt -c sample.txt "cryptography is great" -> encrypts file.txt and writes in sample.txt.nes<br />
-./nescrypt sample.txt.nes "cryptography is great" ->decrypts sample.txt.nes and writes in sample.txt<br />
+`./nescrypt -c sample.txt "cryptography is great" `-> encrypts file.txt and writes in sample.txt.nes<br />
+`./nescrypt sample.txt.nes "cryptography is great"`->decrypts sample.txt.nes and writes in sample.txt<br />
 This command line program (nescrypt) gets file_name and password as input parameters and encrypts/decrypts given file. <br />
 
 # Crypto Library: <br />
