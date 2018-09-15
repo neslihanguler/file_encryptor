@@ -1,0 +1,1002 @@
+PROGRAMMER'S GUIDE
+                     Copyr. 1985, 1989, 1990  Nelson Ford
+
+                               January 1, 1985
+                          Major Update: January 1989
+                           Continual Updating Since
+
+                          Public (software) Library
+                                P.O.Box 35705
+                            Houston, TX 77235-5705
+                                (713) 514-6294
+                                      -
+                             CompuServe 71355,470
+
+
+    A limited license is granted to reprint short extracts from this guide
+    as long as credit is given and a copy is sent to the address above.
+    Individuals may copy this guide for each other as long as no fee is
+    charged. No other copying of this guide is permitted in any form without
+    the express written consent of the editor, Nelson Ford.
+
+                                     ----
+
+    NOTICE:   ALL INFORMATION, TIPS AND ADVICE IN THIS GUIDE ARE PRESENTED
+    TO "GUIDE" YOU INTO AREAS FOR YOU TO RESEARCH AND STUDY IN MORE DETAIL
+    ON YOUR OWN. IN NO CASE WILL NELSON FORD OR OTHER CONTRIBUTING WRITERS
+    BE LIABLE FOR DAMAGES RESULTING FROM YOUR ACTING UPON INFORMATION THAT
+    IS CONTAINED HEREIN. IN PARTICULAR, AN ATTORNEY SHOULD BE CONSULTED ON
+    ANY QUESTIONS OF LAW BEFORE FOLLOWING ADVICE CONTAINED HEREIN.
+
+
+
+
+PROGRAMMER'S GUIDE                                                   Contents
+
+                                   CONTENTS
+
+    Forward - Does shareware work?
+
+    Introduction - different marketing approaches.
+
+    Chapter 1 - Marketing Shareware
+       getting publicity
+       sending out your program
+       advertising
+       a "pure" shareware marketing strategy
+       shareware vs retail-only programs
+       - the user's point of view
+       - the author's point of view
+       do users pay?
+       crippled demo's
+       pd/shareware distributors
+       a sample shareware licensing agreement
+       other protective measures
+       sample disclaimer of warranty
+       selling registered versions through shareware distributors
+       selling registered versions through retail distributors
+
+    Chapter 2 - Making Your Program User-Friendly
+       on-screen help
+       rules for BASIC programmers
+       make the program and keys work naturally
+       let the user customize
+       put things back where you found them
+
+    Chapter 3 - Writing the Documentation
+       keeping your files together
+       number each release
+       multiple documentation files
+       formatting, printing the documentation
+       contents of the documentation file
+
+    Chapter 4 - The Association of Shareware Professionals ("ASP")
+       goals of ASP
+       membership criteria
+       vendor standards
+       meetings on IBMNET
+
+    Chapter 5 - Where to Get Supplies and Services
+       telephone: 800#, answering machines, answering services
+       disk labels
+       blank disks
+       disk duplication
+       disk mailers & boxes
+       credit card processing
+       manual publishing
+
+    Appendix A - Letters from Authors
+       David M. Berdan, author of File Express
+       Edward H. Kidera, author of PC-KEY-DRAW, letters #1 & #2
+       Frank A. Bell, author of Newkey
+
+PROGRAMMER'S GUIDE                                                    Forward
+
+
+
+FORWARD
+
+The purpose of this guide is to provide tips on marketing and writing programs
+that look and work like top-notch professional software. Another purpose is to
+get programmers to share their ideas with each other.
+
+This guide is also going to new program authors, so some of the points may seem
+obvious or elementary to experienced authors.
+
+The information and opinions in this guide are drawn from several areas of the
+author's experience:  as author of a shareware program, Diskcat, which has
+been in distribution since September 1983 (and many other shareware programs
+since); as head of the Public (Software) Library since 1982, during which time
+I have reviewed many thousands of pd/shareware programs; as author of the
+column "The Public Library" for the late SOFTALK magazine; and as software
+reviewer for other publications.  Information has also been solicited from
+shareware authors and users via correspondence and surveys.  The complete text
+of the more significant letters is presented in Appendix A.
+
+This file is formmated for printing.  Start the print head just below the top
+of the paper and copy the file to the printer from DOS.
+
+
+DOES SHAREWARE WORK?
+
+Andrew Fluegelman started the formal shareware concept (he trademarked the
+name Freeware for it).  Andy did not say that everyone who spent an afternoon
+writing a program, uploaded it to a couple of bbs's and sat back and waited
+would get rich.  He said that the shareware approach provides a way to let the
+users decide (rather than the people who control the advertising prices) which
+programs should succeed, based solely on the quality and usefulness of the
+program.  Shareware is not some magic way to get rich from trivial or
+substandard, amateurish products of limited appeal or usefulness.
+
+Some shareware programmers who have failed prefer to blame the shareware
+approach rather than themselves.  They think that millions of people are using
+their programs without paying and that the shareware concept just doesn't work.
+
+To these people we always reply:  If shareware doesn't work, how are Button
+(PC-File), Wallace (PC-Write), Smith (Procomm), and Magee (Automenu) all
+making over a million dollars a year at it?  "These are exceptions!" they
+reply.  Sure they are exceptions.  Anyone making a million dollars a year at
+anything is an exception.  Many others are making lesser, but respectable,
+incomes.  Not bad for a business that anyone can get into at virtually no
+up-front cost.
+
+Yes, shareware definitely works.  Like anything else, how well it works for
+you depends on hard work, ability, and even a little bit of luck.  And even
+luck often boils down to being prepared to take advantage of opportunities
+when they coming knocking.  We hope this guide will help you get prepared.
+
+
+PROGRAMMER'S GUIDE                                                 Introduction
+
+
+INTRODUCTION
+
+You wrote a program to fill a particular need that you had or maybe just for
+the fun of it. Now you are thinking about selling it, but you are not sure of
+how to go about it. Well, what you do next depends on how seriously you want to
+pursue the marketing of your program. If you are very serious, you may find out
+that your work has just begun, and that the programming was the easy part.
+
+
+Going All Out:
+
+Some programmers quit their old jobs, hire people to write their manuals, have
+the manuals and disk labels professionally printed, send copies of their
+program to hundreds of user groups and shareware distributors, get an 800
+number and credit card accounts, hire staff to take and fill orders and
+provide customer support, go to trade shows such as Comdex, go on speaking
+tours to user groups, advertise and publish product newsletters.  They arrange
+deals with distributors and dealers in the U.S. and overseas.
+
+Taking a Smaller Step:
+
+Some programmers, not ready to go all out, keep their "day job", but still get
+manuals and labels printed, send out copies of their programs to lot of groups
+and upload to bbs's. If demand grows, they may hire an answering service to
+take orders.  Some just have an answering machine.  Others only take mail
+orders and don't publish a phone number at all.
+
+Taking it Easy:
+
+The least successful, or at least slowest to succeed, method is to upload your
+program to a few bbs's with a request for payment from satisfied users.  You
+don't send out printed manuals, take phone orders, or hire any kind of staff.
+This is how Fluegelman first envisioned shareware working.  When it does work,
+it works slowly.
+
+Take Vernon Buerg's LIST program, for example.  Buerg originally released it
+in 1983, at first asking for nothing, later asking for a voluntary payment of
+$15.  He relied completely on word of mouth, not trying to push it at all.  As
+LIST slowly gained in popularity beyond the circle of hackers, magazines
+started recommending it in articles.  Today, Buerg gets a healthy income from
+LIST.  This is indeed a 1 in 10,000 story, however, and it paid off only
+because Buerg was willing to continuing supporting users and working on the
+program for years before getting substantial payback for it.
+
+Letting Someone Else Do It:
+
+Some programmers have formed partnerships in which the partner handles all the
+marketing. That may be a viable alternative if you don't mind splitting the
+earnings and have someone whose ability, dedication and integrity you trust.
+
+You might also be able to find an established wholesale or retail distributor
+to market your program, rather than using the normal shareware approach.  If
+you do, you will probably find that the returns are very low.  If a program is
+good, it will sell whether you sell it or a distributor does, but if an
+established distributor sells it, you may end up getting 10 cents on the
+dollar, or even less, and you may lose the rights to your program.
+
+PROGRAMMER'S GUIDE                                                    Chap. 1
+
+CHAPTER 1:  MARKETING SHAREWARE
+-------------------------------
+
+GETTING PUBLICITY
+
+In 1982 and 1983, the relatively few shareware programs available were able to
+get exposure in the press simply because of their uniqueness.  In 1984, there
+was a column on public domain ("pd") and shareware software in Softalk
+magazine, but the magazine folded at the end of 1984.  After that, reviews of
+shareware in the computing press were scarce for a couple of years.
+
+The years 1987 and 1988 saw increased coverage of shareware in the press, but
+also saw an even larger increase in the total number of shareware programs
+available. (At the PSL, we screen over 400 programs a month.)
+
+Sending your programs directly to a magazine will probably do no good. PC
+Magazine and its ilk cannot possibly assimilate even a small fraction of those
+400 programs a month.  Even the few who get mentioned (in fact, even some who
+have been named Editor's Choice in comparative reviews in PC Magazine) report
+a short burst of activity that doesn't have that much impact in the long run.
+(Look back at 1982-1985 PC Magazines and see how many Editor's Choices are
+no longer around.)
+
+Sending press releases to non-computer magazines might get you more attention
+because the computer angle is more unique to them and their readers.  For
+example, if you have a wonderful video tape cataloging program, send PR's
+about it to all the video magazines.
+
+SENDING OUT YOUR PROGRAM
+
+Rather than waste time and money sending your program to magazines where it
+will probably be ignored or at best, generate a short-term benefit, spend the
+time and money sending your disk to distributors and user groups and uploading
+to major BBS's, such as CompuServe.
+
+Make sure your program is stable for a while before doing all this, because
+you don't want to have to suffer the expense (and embarrassment) to send them
+all out again in a few weeks to fix a bug.  You can often get a lot of good
+user feedback by distributing the early versions of your program to just a few
+places.  After the feedback has resulted in an improved, bug-free, stable
+program, then start sending out to as many places as you can afford.
+
+You can get the names and addresses of user groups and numbers of bbs's from
+some magazines such as Computer Shopper.  You can get names of distributors
+from ads and articles in magazines, but if you see an ad that pretends to be
+actually selling the software and doesn't explain what shareware is, you
+should give consideration to whether you want them misrepresenting your
+program to the public in that way. Update: The Association of Shareware
+Professionals now screens and licenses shareware distributors. Many ASP
+members restrict distribution of their programs to ASP approved vendors.
+
+After your first major, widespread release, you should probably aim for a
+major update about every six months to a year.  Any more than that and people
+will get fed up with having to update their software.  Any less than that, and
+some other program may out-feature you and steal your business.
+
+PROGRAMMER'S GUIDE                                                    Chap. 1
+
+
+
+ADVERTISING
+
+In general, advertising shareware does not pay for itself in direct sales.
+Even the little low-cost classified ads in the backs of magazines generally do
+not pay off.  And yes, that even includes ads in PSL NEWS!  Such advertising
+is mainly good for increasing long-term public awareness of your product(s).
+
+Shareware programmers also report dismal results with those card decks which
+many people throw away without opening.  Marshall Magee (Automenu) says: "I
+have done two card decks, PC Softdeck and another one. I don't think it was
+worth the money."
+
+The best form of advertising for your program should be the shareware version
+of it.  If that won't sell your program, an ad surely won't.  Spend your time
+and money getting your shareware disk out to users or to people who will
+distribute it to users.
+
+Shareware distributors can afford to advertise because it should generate repeat
+business for them that should pay off in the long run. Few shareware authors
+expect or get repeat business from the average customer, with the except of
+occasional, smaller update fees. Let the distributors advertise your program for
+you by listing it in their ads and catalogs. Why should YOU pay for the
+advertising?
+
+Again - the best use of your time and money is getting your program out into
+people's hands by sending it to distributors and uploading to BBS's.
+
+
+A "PURE" SHAREWARE MARKETING STRATEGY
+
+Some programmers get so paranoid about stopping people from using their
+software without paying for it that they forget that these people are their
+distributors too.  By cutting them off, you cut of your lines of distribution.
+
+Here is a "pure" shareware marketing strategy:  Make your goal the first year
+to get as many people using your program as possible without worrying about
+who is paying and who isn't.  That first year, you should either be working on
+polishing the program or on pushing the program all the time.  If you can hit
+"critical mass", in terms of number of people really using your program, then
+the money should take care of itself. If your program becomes a clear standard
+then your leverage in getting people to pay becomes much greater.
+
+
+
+PROGRAMMER'S GUIDE                                                    Chap. 1
+
+
+SHAREWARE VS RETAIL-ONLY SOFTWARE
+
+In general, a program that will not succeed as shareware will not make any
+money in the retail-only market either.  In fact, it may lose money.
+Conversely, a program that sells well in one market would probably sell well
+in the other too.
+
+Games and niche products with a limited user base are difficult to sell in
+either market.  Programs that can be used by businesses on a daily basis are
+the top money-makers in both markets.
+
+There are some differences, though, from both the user's and the programmer's
+points of view.  As a programmer, you need to be aware of these difference so
+that you can plan around them.
+
+
+The User's Point of View:
+
+* TRY-BEFORE-BUYING:  The theoretical advantage of shareware to users is being
+able to fully try a program before paying for it.  However, this shareware
+advantage is starting to be negated by retailers who allow users to return
+retail software within a 30-day trial period.
+
+* RESPONSIVENESS:  Shareware authors are generally more responsive in terms of
+making changes.  An author of retail software who wishes to change his program
+may have to get back the old version from distributors and have new labels,
+brochures and documentation printed.  A shareware author just puts out a new
+disk.  On the other hand, authors of retail programs are usually available for
+telephone support, if you can get through to them, which may not be the case
+with shareware authors who have other jobs during the day.
+
+   A major problem with shareware is that programmers move, but old versions
+of their programs continue to circulate with the old address.  If possible,
+get a P.O. box and keep it after you move. I still get a couple of Diskcat
+registrations a week at a P.O. box that I haven't officially used for nearly
+three years. Another solution is to join ASP (discussed later) so that users
+can locate you through that organization.
+
+* COSTS:  The argument used to be that shareware could be cheaper than retail
+software because you didn't have to pay for printed manuals that sit on the
+shelf and fancy packaging that gets thrown away. Ironically, today virtually
+all major shareware programs includes those trappings. It's felt that users
+have to feel that they are getting something for registering beyond fulfilling
+a theoretical legal obligation.
+
+     Another alleged cost saving was eliminating the middle man - the
+distributor.  Now many of the top shareware authors are selling through
+distributors too.  These old, specious arguments ignored the fact that these
+"extra costs" also generated "extra income" that more than offset them for a
+successful product.
+
+     In addition, Borland Software led the way in driving down retail software
+prices while registration fees for some shareware have increased dramatically.
+For example PC-File, which cost $25 in 1983 now costs about $90.  Of course,
+at the same time, the functionality of PC-File has increased correspondingly,
+but the point remains that shareware is no longer just "cheapware".
+
+PROGRAMMER'S GUIDE                                                    Chap. 1
+
+
+(Shareware vs. Retail, cont)
+
+
+* PROGRAM COMPLEXITY: Shareware programmers normally work alone while retail
+software companies can employ dozens of programs for large, complex projects.
+As a result, some types of shareware programs cannot match all the features of
+retail programs of the same type.  For example, a graphics related shareware
+program may only support a couple of printers while a similar retail program
+may support dozens.
+
+
+* PROGRAM QUALITY:  Many times, retail products contain serious bugs and there
+is little or nothing the user can do about it.  The retail company may NEVER
+fix them.  In 1985, we tried to produce a program for sale in the retail
+market using IBM's new $500 BASCOM 2.0 compiler which had so many bugs that
+our product, which we had finished on time to meet our advertising and other
+deadlines, would not run.  IBM made numerous "unofficial" revisions (ie:  we
+had to learn about them second hand), but never got all the serious bugs out.
+Evidently, they eventually gave up on it.  We lost tens of thousands of
+dollars as a result.
+
+     In contrast, if a shareware program has serious bugs, people just don't
+pay for it.  In fact, some people probably use the existence of any bugs, no
+matter how insignificant, as an excuse not to pay.  Therefore, shareware has
+to be in better shape than does retail software to succeed.
+
+
+
+The Author's Point of View:
+
+* COSTS:  Advertising is horribly expensive. You can go broke quickly trying
+to break in a new program.  The shareware approach offers a low- or no-cost
+alternative.  Not only can you get into shareware marketing for virtually
+nothing, you can afford to take whatever time is required to establish your
+program since maintaining a presence in shareware can cost you nothing.
+
+     Even so, if you want to have printed manuals and labels, to send out
+disks to user groups, to join and participate in the ASP, figure on spending
+at least a couple of thousand dollars, and be happy if you break even the
+first year.
+
+
+* TIMELINESS:  A single magazine ad may make more potential users aware of
+your program in one month than shareware distribution will reach in a year or
+more, if ever.  If you have a program that will be worthless a year from now
+and no follow-up versions are likely, you are almost certain to make nothing
+in shareware, and it will be difficult, at best, even in the retail market.
+The shareware authors who are now making over $1 million a year report that
+they got very few registrations for the first six months to a year.  In
+shareware, patience is not just a virtue, it is essential.
+
+     By the way, while a single ad may make a lot of people aware of your
+product, that doesn't mean that you will sell enough to break even on the cost
+of the ad. "Being aware" does not directly equal sales.
+
+
+
+PROGRAMMER'S GUIDE                                                    Chap. 1
+
+
+(Shareware vs. Retail, cont)
+
+
+
+* COMPETITION:  In 1984, we said that the retail market is more crowded and
+the competition fiercer. Now the reverse is true. There are more and more
+amateur programmers each year with better and better programming tools.
+Skyrocketing advertising costs force most of these people into the shareware
+market rather than the retail market.
+
+     While improving on someone else's idea is a time-honored way to make
+money, people keep cranking out more and more of the same programs.  When
+there are dozens of the same type of program available, it becomes more
+difficult for any one programmer to make money.  Do yourself a favor and check
+on what is already available befor programming your brains out.  The PSL's "PD
+& Shareware Reviews Disks" contains write-ups of thousands of programs, all
+arranged by subject matter.  Look there before you leap.
+
+
+* IMPULSE SALES:  The shareware author gets no money from impulse sales nor a
+user's mistake in buying a program that he doesn't need.  Everybody with more
+than six pieces of retail software probably has one that he bought and has
+never used because his needs changed or he didn't like the program. The author
+doesn't care that much if you use the program or not - he has his money.
+
+
+DO USERS PAY?
+
+Commercial software houses' wildest claims wouldn't put the percent of people
+who haven't paid for their programs out of total users at over 50%, yet most
+shareware authors estimate that from 80% to 99% of people using their program
+have not paid.
+
+Are these estimates valid, or are they just sour grapes from people with bad
+programs?  Nobody knows for sure.  Certainly there a lot of people using
+software of all kinds, shareware AND retail, without paying for it.  Retail
+software houses tried to get these people with copy protection, and it did not
+work.  Shareware authors have tried crippling (limiting) their programs, and
+it has not worked either.  In both cases, the crooked user is going to find a
+way to get his "free" software, so all the programmer has done is create ill
+will with the honest users.
+
+
+Here are traps programmers fall into which only serve to insure their failure:
+
+1. Lack of patience.  Remember that it usually takes six months to a year for
+a program to begin to reach a broad enough range of people to begin bringing
+in significant returns.  During that time, if you want to succeed and really
+believe in your program, you have to keep pushing it and improving it just as
+if you were making a million dollars.
+
+
+PROGRAMMER'S GUIDE                                                    Chap 1
+
+
+(Do Users Pay?, cont.)
+
+
+
+2. Overestimating the program.  Some programs are just not that good.  It is
+easier for programmers to believe that ten thousand people are using their
+program and not paying for it than to believe that the program just isn't that
+good and to continue working to improve it.
+
+   And a sad fact of life is that sometimes outstanding isn't good enough.
+Many authors have sent us press clippings saying how great their programs are
+and complaining that they have gotten few or no registrations.  They blame
+shareware, ignoring the fact that many outstanding retail programs, highly
+acclaimed by the press, have also gone under.  Homebase, now a shareware
+program owned by Brown Bag, was once a PC Magazine's "Editors Choice" as a
+retail-only program originally owned by Amber Software.
+
+
+3. Overestimating the number of users.  A commonly heard complaint is "200
+people downloaded my program from CompuServe and I only got 2 registrations. I
+know more people than that are using it."  Many people who download programs
+or buy disks from distributors do so out of curiosity or to get programs for
+their own bbs's or libraries.  It takes TIME for these people to get your
+program out to the masses, and more time for the masses to use the program
+enough to want to pay.
+
+
+4. Trying to sell trivial software.  People are generally not going to pay for
+a trivial program, especially since there usually are a lot of free versions
+of the same thing around if a program is trivial.
+
+
+5. Not working at marketing.  It takes a lot of work to get your program out
+to people, to get it reviewed by magazines, user groups and shareware
+distributors, and to continue to improve it in response to users.  Most people
+getting into shareware have no concept of having to market their programs.
+Marshall Magee, author of Automenu, has defied the odds by making big bucks
+selling a shareware program in a very crowded field - DOS menu programs. He
+does it by pushing his product to anyone who will listen.
+
+
+6. Not continuing to improve. I have heard many programmers say that they were
+not going to invest any more time adding features or fixing bugs until they
+got some registrations. This brings certain failure. Most people originally
+write shareware for their own use or for the fun of programming. For the first
+year, your best bet is to not even think about registrations: continue to work
+on the program for your own use or enjoyment and don't worry about who might
+be using it. Remember, people who work at something just for the money seldom
+get pleasure out of what they are doing, and those work at something because
+they love the work usually find that the rewards come without worrying about
+them.
+
+PROGRAMMER'S GUIDE                                                     Chap 1
+
+
+
+When programmers fail because of the preceding points, they usually start
+resorting to desperate measure such as the following:
+
+
+CRIPPLED DEMOS
+
+Crippled demos are what retail software houses sometimes provide potential
+customers. By disabling some critical function, such as the ability of a word
+processing program to save a file to disk, they allow the user to try out all
+the other functions of the program to see if they like it without taking the
+risk of sending out the complete program.
+
+You may wonder why shareware authors don't just send out crippled demos
+instead of fully functioning programs for which some users don't bother to
+send payment.  The theory is that the more copies of your program being used,
+the more money you will get in the long run as your program becomes the
+standard.  This is what happened with PC-Write and PC-File, both of which have
+reportedly made seven-figure earnings for their authors.  But PC-File's Jim
+Button estimated in 1985 that fewer than one person in 20 using the program is
+paying for it.  (We question the validity of that figure, which is surely
+pulled from a hat, but that's beside the point.)
+
+You would have to be an iron man to stoically accept the fact that, no matter
+how much money you've received which you might not have otherwise gotten, there
+are thousands of people around who are using your program without paying.  So
+some shareware authors try the crippling technique.
+
+The most common tactic is to omit parts of the documentation that explain more
+advanced program features. When the user makes payment, he gets a printed man-
+ual with the missing sections which may not be copied for others. This tactic
+will only work for programs with large amounts of documentation and with
+advanced features.
+
+Other authors offer less powerful versions of a program as shareware that may
+be freely copied and more powerful versions that may not be legally copied.
+
+Remember that while these tactics may ensure a higher ratio of paid users,
+they also cut down on the number of total users.  Since you are relying on
+word-of-mouth instead of paid advertising, you may get fewer "cheaters" but
+you may also actually get fewer paid users.
+
+Another reason that people don't pay may be because of shareware distributors
+who mislead the people into thinking they are buying the software when they
+pay the distributor's disk fees.
+
+
+PROGRAMMER'S GUIDE                                                    Chap 1
+
+
+
+PD/SHAREWARE DISTRIBUTORS:
+
+In the beginning, the idea of shareware was that users would give copies to
+each other and user groups would give free copies to members.  Everything was
+done for free.
+
+However, as libraries and user groups grew, librarians started charging fees
+to cover their expenses.  Many libraries have over 1,000 disks and many groups
+have hundreds of members to make copies for.  Also, today's groups are filled
+with novices who must be assisted in learning to use the public domain and
+shareware software and the library must be better organized to avoid confusing
+or overwhelming these novices.
+
+Ideally, programs in a library must be tested for functionality, bugs and
+viruses; they must be organized by topic; and they must be kept up to date.
+Gathering the people with the expertise to do all this is costly and time
+consuming and has long since been beyond the capacity of user groups to keep
+up with.  In addition, a substantial number of people do not have access to
+user groups anyway, so the job of distributing shareware has passed more to
+the full-time, professional shareware distributors.
+
+Unfortunately, there are distributors who are just looking for a quick buck
+and who do little or none of the work normally involved in testing, organizing
+and keeping things up to date.  These same quick-buckers usually misrepresent
+to the public that they are selling the programs without explaining what
+shareware is.  For example, look at some of the shareware ads in PC or other
+magazines and see if the nature of shareware is being explained.
+
+The Association of Shareware Professionals has passed Vendor Requirements
+whereby distributors can be approved by ASP.  Under these requirements,
+vendors would have to explain shareware in their ads that quote a price.
+
+I strongly recommend that you state in your documentation that anyone charging
+any kind of fee for providing copies of your program must have your written
+authorization unless they are recognized by the ASP.  On the following page is
+a form that is used for Diskcat.
+
+The control number on the form lets you track where registrations are coming
+from.  This can be very important as you may have dozens or even hundreds of
+bbs's, disk distributors or user groups distributing your program and if you
+know who is generating the most registrations, you know to whom it is worth
+sending updates.
+
+
+                   DISKCAT DISTRIBUTION LICENSING AGREEMENT
+
+    Anyone wishing to charge people a fee for giving them a copy of Disk-
+    cat must have the written authorization of the author, without which,
+    the distributor is guilty of copyright violation.    To receive such
+    authorization, send this completed application, along with a copy of
+    your software library's order form to:   Nelson Ford,  P.O.Box 35705,
+    Houston, TX 77235.    Include $7 to cover the cost of processing the
+    application and of sending you the latest version of Diskcat.    For
+    distributors already recognized by the Association of Shareware Pro-
+    fessionals, this application is not necessary.
+
+         Name of Organization: ____________________________________
+         Your Name: _______________________________________________
+         Address:   _______________________________________________
+                    _______________________________________________
+
+         TERMS OF DISTRIBUTION OF DISKCAT:
+
+         1. The fee charged may not exceed $7, including postage,
+            mailer and any other charges.
+
+         2. Your library's catalog or listing must state that this
+            program is not free, but is copyrighted software that is
+            provided to allow the user to evaluate it before paying.
+
+         3. The offering and sale of Diskcat will be stopped at any
+            time the author so requests.
+
+         4. Copies must be made from the copy of Diskcat sent to you
+            with this agreement. This is required for control purposes.
+
+         5. Problems or complaints will be reported to the author for
+            resolution.
+
+         In return for the right to charge a fee for the distribution of
+         the program Diskcat, I agree to comply with the above terms of
+         distribution.
+
+         Signed,
+
+         ______________________________________    ______________
+                  your signature                        date
+
+         __________________________   _________    ______________
+                Nelson Ford           control #         date
+
+
+PROGRAMMER'S GUIDE                                                    Chap 1
+
+
+OTHER PROTECTIVE MEASURES
+
+Make use of trademark and copyright protection.  Even if you don't actually
+register them, the symbols and notices may protect your future rights. Your
+copyright notice should look something like this:
+          DISKCAT  COPYR. 1983,1984,1988 NELSON FORD ALL RIGHTS RESERVED
+The (C) is generally not acceptable (the C must be enclosed in a full circle),
+so spell out copyright or abbreviate it COPYR.  If you have revisions spanning
+multiple years, list them all.  The complete notice should be on one line.
+
+Patenting Software - Attorney Jon Wallace tells us:
+  Re patenting a program - it is possible, but extremely time consuming
+  and costly.  The program must be novel and non-obvious (terms of art)
+  and cannot merely solve an algorithm or incorporate a law of nature.
+  The process can take two years and cost thousands of dollars.  Is it
+  worth it?  Well, if Software Arts had patented VisiCalc, Lotus 1-2-3
+  would never have made it to market.
+
+Trademarks:  Generally, if you start distributing your program without a (TM)
+notice by the name, you lose the trademark protection.  So spend the extra
+four keystrokes and put it on.  Marshall Magee advises:
+  The trademark office requires that you send them copies of artwork
+  currently being used to market your product with the TM indicated next
+  to your word or phrase. The patent & trademark office will then issue
+  you a paper telling you that your word or phrase is now a Registered
+  Trademark and then you have the right to use the circled R in place of TM.
+  CompuServe has a service called IQuest that will allow you to scan the
+  Trademark Data Base for less than $15.  This is a cheap way to check on
+  whether or not someone else has already registered your words. If you
+  send in a name that is already registered, you will lose the $175 fee,
+  but that is still cheaper than paying a lawyer to do a search.
+
+Warranties:  You should also put a disclaimer of warranty in your
+documentation.  Place it at the front of the documentation where the reader
+cannot miss it.  The following is a sample disclaimer that you can use:
+
+                      DISCLAIMER OF WARRANTY
+
+THIS SOFTWARE AND MANUAL ARE SOLD "AS IS" AND WITHOUT WARRANTIES AS TO
+PERFORMANCE OF MERCHANTABILITY OR ANY OTHER WARRANTIES WHETHER EXPRESSED
+OR IMPLIED.  BECAUSE OF THE VARIOUS HARDWARE AND SOFTWARE ENVIRONMENTS
+INTO WHICH THIS PROGRAM MAY BE PUT, NO WARRANTY OF FITNESS FOR A PARTICULAR
+PURPOSE IS OFFERED.
+
+GOOD DATA PROCESSING PROCEDURE DICTATES THAT ANY PROGRAM BE THOROUGHLY
+TESTED WITH NON-CRITICAL DATA BEFORE RELYING ON IT.  THE USER MUST ASSUME
+THE ENTIRE RISK OF USING THE PROGRAM.  ANY LIABILITY OF THE SELLER WILL BE
+LIMITED EXCLUSIVELY TO PRODUCT REPLACEMENT OR REFUND OF PURCHASE PRICE.
+
+All of the above legal information about copyrights, trademarks and warranties
+is based on careful research, but is presented by one with no legal training.
+It is presented to give you an idea of the types of protection available to
+you.  Talk to a lawyer or get a book on the subject for more detailed, more
+accurate and up-to-date information.
+
+PROGRAMMER'S GUIDE                                                    Chap 1
+
+
+
+SELLING REGISTERED VERSIONS THROUGH SHAREWARE DISTRIBUTORS:
+
+Several shareware distributors have begun selling "registered versions" of
+shareware programs.  Practices for doing so vary widely.  Some may have you
+send them packages to sell on consignment, some may buy packages from you just
+like a regular dealer, others may sell the program but have you ship it.
+
+The percentage that the distributor gets also varies widely, from less than
+10% to as high as 60%.  Before signing with a distributor who will keep 60%,
+keep in mind that if you allow such a distributor to sell your program, for
+you just to break even, he must generate more than two-and-a-half times more
+registrations from people who would not have registered otherwise.  If out of
+25 registrations, 10 of those people would have registered with you directly
+anyway, you barely break even.  If half of the 25 would have registered with
+you anyway, you have lost money to the distributor.
+
+We think more and more distributors will take to selling registered versions
+and in general, this will be beneficial to shareware.  Obviously, if a vendor
+is offering PC-File for sale for $89, he can hardly mislead the customer into
+believing that a $2-$6 disk fee is the cost of "purchasing" the program.
+
+The main drawback is that you must be careful in selecting those you let sell
+your program.  If they rip someone off, you may have to pay.  And you may also
+have to cope with rip-off artists who claim to be selling your program, but who
+give you none of the money.
+
+
+
+SELLING REGISTERED VERSIONS THROUGH "RETAIL" DISTRIBUTORS/DEALERS:
+
+Some of the top shareware authors also sell their programs through normal
+retail channels.  While there is nothing wrong with this from the shareware
+viewpoint, dealers and distributors often complain when they see "the same
+program" being listed in a shareware distributor's ad for a few bucks.
+
+Hopefully, in the long run, increased public awareness about the true
+nature of shareware and more truth in advertising by shareware distributors
+(both of which are major goals of ASP) will stop this from being such a
+problem.  In fact, as more shareware distributors begin to sell both retail and
+registered shareware products, the distinction between the two may disappear,
+other than the advantage to users of being able to try shareware before buying.
+
+PROGRAMMER'S GUIDE                                                    Chap 1
+
+SETTING PRICES:
+
+Costs were discussed a few pages back under "Shareware vs Retail Software",
+but now let's look at the problem of setting a price for your program.
+
+Truism #1: If somone doesn't need a program, the fact that you may have
+             grossly underpriced it is not going to induce them to register.
+Truism #2: Users don't care if you "really need the money" or if you spent
+             10,000 hours on the program. They care about THEIR needs and
+             the costs and alternatives for filling those needs.
+
+The two keys to pricing a program are the cost of alternatives and the value
+to the user.
+
+Check Out the Competition:
+
+To do a sensible job of setting a price for your product, you need to know the
+shareware and retail markets for your product.  Find out what other programs
+are selling for and compare your program to them in terms of quality and
+features.  For retail products, don't look at list prices, look at mail-order
+discount ads. That is your main competition.  For shareware products, the
+easiest way to compare is to look in the PSL's PD/Shareware Reviews. The
+license (or "registration") fees shown there include shipping and handling, in
+order to make comparisons valid.  Don't forget to check both the Small
+Programs Reviews disk and the Large Program Reviews disks.
+
+If you have written a simple program and you see other programs like it that
+are free or $10 or less, that does not bode well for the odds of your getting
+rich from your version.  Even if you don't find any competition, if your
+program was easy to write and you overprice it, you can bet that others will
+write "improved" versions of your program and ask little or nothing for it.
+
+For example, one month we saw a program that was somewhat unique, but was
+clearly trivial to program, had a relatively high shareware fee, and on top of
+everything else, had very retrictive policies about who could copy it, plus
+the program was poorly designed.  In a few hours, we wrote a version that we
+think was much better designed and had a much lower shareware fee.
+
+"Alternatives" are not always other programs.  If you had the world's only
+program for keeping track of, say, telephone messages, you still could not
+charge hundreds of dollars for it because people still have non-computing
+alternatives -- writing the messages down on paper.
+
+Value -- and Pricing Flexibility:
+
+For a program to be a huge success, it must have a large target audience, it
+must have a value far in excess of its cost, and it must be appear to be
+better and/or cheaper than alternatives.  If the use of alternatives is
+already deeply engrained in people's habits, then the program must be greatly
+superior to alternatives (not just cheaper) to get people to switch and to
+learn a new system. In effect, your target audience is made smaller when your
+program's niche is already dominated by a highly successful program.
+
+Sometimes a programmer will price a program very low because he thinks that
+will get more people to pay for it.  This strategy is fine if it is based on a
+comparison of the program to alternatives, but it usually is based soley upon
+desperation and/or lack of confidence.
+
+PROGRAMMER'S GUIDE                                                    Chap 1
+
+(Pricing... continued)
+
+
+
+This strategy of trying to low-price a program is most often employed with
+low-value programs or programs with small target audiences.  It does NOT work.
+Large numbers of people are simply not going to pay for low value programs, no
+matter what the price.
+
+Likewise, pricing has virtually no effect on the size of your target audience.
+If you have a high value program, but a small target audience, you should keep
+your price up (still giving consideration to the cost of alternatives) and use
+the extra revenues to try to increase the size of your target audience (ie:
+get out and PUSH your program) or to to develop other programs.
+
+
+Charge for Value to the User, Not for Your Time:
+
+If you are fairly new to programming and it took you weeks or months to
+perfect your program, keep in mind that an experienced programmer might
+duplicate your effort in a day.  Don't price your product based on the number
+of hours you spent, but on the value of the program to the user.
+
+
+Case Studies:
+
+BASIC compilers used to sell for hundreds of dollars.  When Microsoft
+introduced QuickBASIC ("QB"), it had a street price of under $60, although its
+value ot the customer was clearly very high and it had a large target
+audience.  The reason why was competition for Borland Software who was
+releasing Turbo BASIC about the same time and at about the same price.
+
+A company named MicroHelp sells add-on's for QB, usually at prices much higher
+than QB itself.  Even though the time and money invested in these add-on's is
+undoubtedly many times less than in QB, and though the relative value of the
+add-on's is probably far less than QB itself, MicroHelp still enjoys very good
+success and, in our opinion, would have no more success if it lowered its
+prices.
+
+The reason why is because of two key elements: (1) the relative value of the
+add-on's compared to QB notwithstanding, the value of the add-on's to the user
+is still many times the price of the programs and (2) for most of these
+add-on's, there are no alternatives that are significantly cheaper.
+
+
+Rabinowitz's SWAP Programs:
+
+In the shareware arena, Chip Rabinowitz has cleaned up with some add-on's for
+many popular pop-up programs (such as Sidekick) that reduce the DOS RAM used
+by these programs to about 9k.  Again, the price of these add-on's is much
+higher than the value of and time/money invested in the original programs, but
+that fact notwithstanding, the value of the SWAP programs is many times their
+price and the alternative (of not using the SWAP programs and continuing to
+waste precious DOS RAM) is not an attractive one.
+
+
+
+
+PROGRAMMER'S GUIDE                                                    Chap 2
+
+
+
+CHAPTER 2:  MAKING YOUR PROGRAM USER-FRIENDLY
+---------------------------------------------
+
+ON-SCREEN HELP
+
+The first thing most people will do when they get your program disk will not be
+to print out and study the documentation; it will be to try to run the program.
+So your program should have enough on-screen help to allow the user to run the
+program at least well enough to get interested in it.
+
+One popular data base program has one place where instead of a self-explanatory
+menu, it shows a series of cryptic symbols and letters from which the user is
+supposed to select.  Chances are, the occasional user will have to refer to the
+manual every time this part of the program is reached. (Since 1984 when this
+was written, the data base program has been improved.)
+
+The most desirable alternative is to have the program work in a natural enough
+manner and have enough information on the screen to allow the user to operate
+the program with no further help. The second best alternative is to have help
+screens that can be called up with a keystroke. The third best alternative is
+to have a well-written manual.  The worst alternative is to have users calling
+you all hours of the day and night or even have them give up on your program.
+
+Supply defaults. If the user has supplied the name of a file to load, make that
+name the default when you ask him for a name to save with. While on the subject
+of files, if you ask for a filename, be prepared to let the user see the disk
+directory. Some programs make the user exit the program and look at the
+directory in DOS if he cannot remember the filename.  A nice checkbook program
+in the PSL lets you put a vendor's name and address on a check by entering the
+vendor's ID#, but it doesn't let you view a list of vendor ID numbers!
+
+Trap errors. Nobody wants to have ten minutes of keyboard input dumped into the
+bit bucket because the program kicked out to DOS when it found a disk drive
+door open, or some other minor infraction. One very fine shareware program has
+scared off potential users because it gives nothing more than error code
+numbers for simple things like having a write-protect tab on a disk. In this
+case, the author would have been better off not trapping errors. The program
+would have aborted, but at at least DOS would have spelled out the error
+messages.
+
+RULES FOR BASIC PROGRAMMERS
+
+Here are two cardinal rules for BASIC programmers:
+
+1. Compile your program. There are many, many users who have never run anything
+but 1-2-3 or Wordstar. They do not understand the intricacies of getting in and
+out of the BASIC interpreter. They expect to be able to run the program by
+typing in its name from DOS. Furthermore, your program will run faster. Also,
+some PC-compatibles do not come with a BASIC interpreter. On these, the user
+cannot run your program at all! (eg: DG/1, Tava)  (Note: this is even more
+true now than when this was written in 1984.)
+
+2. Avoid using the INPUT command. It allows the user to wipe out the screen and
+provides very little control to the programmer. Instead, use an INKEY$ routine.
+
+Almost all BASIC programmers are now following these rules, but they still bear
+repeating. Not a cardinal rule but still a very good idea for BASIC programmers
+is to use assembler subroutines for doing screen writes. Users are accustomed
+to instantaneous screen writes in professional programs. An alternative is to
+use the paging capabilities of the graphics card but then users with monochrome
+monitors must still wait.
+
+PROGRAMMER'S GUIDE                                                    Chap 2
+
+
+MAKE THE PROGRAM AND KEYS WORK NATURALLY
+
+All programmers should allow full-screen editing. This simply means that the
+user can move back to a prior prompt with the cursor keys to correct an error.
+Thoughtless (or lazy) programmers make the user go all the way through a series
+of prompts and then asks if there are any corrections. The best time to correct
+an error is as soon as you notice it. That way, you can get your mind off the
+error and back on your work.
+
+Similarly, the Esc key should always allow the user to get out of whatever he
+has gotten into.  Nobody likes to re-boot his computer just because he
+accidentally selected a wrong option and can't get out of it.  I have seen
+retail programs that use the Esc key to execute a command. How perverted!
+
+Make the program as flexible as possible. What may seem to you like a natural,
+logical key to strike for a particular function may not seem so to the user.
+That's why keyboard modification utilities are so popular. For example, to page
+up, you could let the user press either Ctrl-P or PgUp or, better yet, select
+his own favorite key to use for that function.
