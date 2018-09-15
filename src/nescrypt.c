@@ -67,7 +67,7 @@ void nes_encrypt(const char *source, const char *password) {
     
     unsigned char read_buf[CHUNK_SIZE];
     unsigned char cipher[CHUNK_SIZE + crypto_aead_xchacha20poly1305_ietf_ABYTES]; //cipher text + mac
-    FILE *fp_s, *fp_d;
+    FILE *fp_s, *fp_t;
     
     /*  We need to derive a key from the given password. I decided to use Argon2 function of libsodium which provides
         a password hashing scheme through the use of an unpredictable salt. I append this salt value,
@@ -78,25 +78,25 @@ void nes_encrypt(const char *source, const char *password) {
     
     unsigned char key[crypto_aead_xchacha20poly1305_ietf_KEYBYTES];
     if (derive_encryption_key(key, sizeof key, password, strlen(password), salt) < 0 ) {
-        printf("Key not derived successfully!");
+        printf("Encryption key not derived successfully!");
         exit(0);
     };
     
-    char target[33];
-    bzero(target, 33);
+    char target[34];
+    bzero(target, 34);
     sprintf(target, "%s.nes", source);
     
     fp_s = fopen(source, "rb");
-    fp_d = fopen(target, "wb");
+    fp_t = fopen(target, "wb");
     
-    fwrite(salt, 1, crypto_pwhash_SALTBYTES, fp_d);
+    fwrite(salt, 1, crypto_pwhash_SALTBYTES, fp_t);
     
     /* Similarly I need a nonce value for AEAD cipher. It should be unique for each data chunk.
        I'll increment it after each use to provide uniqueness. The initial value will be appended
-       to the beginning of encrypted text. */
+       to the beginning of encrypted text, right after salt. */
     unsigned char seed[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES];
     randombytes_buf(seed, sizeof seed); /* 192-bits nonce */
-    fwrite(seed, 1, crypto_aead_xchacha20poly1305_ietf_NPUBBYTES, fp_d);
+    fwrite(seed, 1, crypto_aead_xchacha20poly1305_ietf_NPUBBYTES, fp_t);
     
     uint64_t seq_number = 0;
     int rlen;
@@ -107,29 +107,93 @@ void nes_encrypt(const char *source, const char *password) {
         unsigned long long mlen = rlen;
         unsigned char nonce[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES];
         calc_nonce(nonce, seed, seq_number);
-        crypto_aead_xchacha20poly1305_ietf_encrypt(cipher, &clen, (const unsigned char *)read_buf, rlen,
-                                                   NULL, 0, NULL, nonce, (const unsigned char *)password);
+        if (crypto_aead_xchacha20poly1305_ietf_encrypt(cipher, &clen, (const unsigned char *)read_buf, rlen,
+                                                       NULL, 0, NULL, nonce, (const unsigned char *)key) < 0) {
+            printf("\nEncryption Error!");
+            goto end;
+        };
         if (clen != mlen + crypto_aead_xchacha20poly1305_ietf_abytes()) {
             printf("\nEncryption Error!");
-            fclose(fp_s);
-            fclose(fp_d);
-            return;
+            goto end;
         } else {
-            fwrite(cipher, 1, (size_t) clen, fp_d);
+            fwrite(cipher, 1, (size_t) clen, fp_t);
             seq_number++;
         }
     } while(!feof(fp_s));
     
-    fclose(fp_s);
-    fclose(fp_d);
-    
     printf("\n%s encrypted and saved in %s", source, target);
     
+end:
+    fclose(fp_s);
+    fclose(fp_t);
     return;
 }
 
 void nes_decrypt(const char *source, const char *password) {
     
+    unsigned char read_buf[CHUNK_SIZE + crypto_aead_xchacha20poly1305_ietf_ABYTES]; //cipher text + mac
+    unsigned char plain[CHUNK_SIZE];
+    FILE *fp_s, *fp_t;
+    
+    char target[30];
+    bzero(target, 30);
+    ssize_t slen = sizeof(source);
+    for (int i = 0; i < slen - 4; i++) {
+        target[i] = source[i];
+    }
+    fp_t = fopen(target, "wb");
+    
+    //open source file and read salt
+    fp_s = fopen(source, "rb");
+    unsigned char salt[crypto_pwhash_SALTBYTES];
+    int rlen = fread(salt, 1, crypto_pwhash_SALTBYTES, fp_s);
+    if (rlen < crypto_pwhash_SALTBYTES) {
+        printf("File read error!");
+        goto end;
+    }
+    
+    //derive dec key
+    unsigned char key[crypto_aead_xchacha20poly1305_ietf_KEYBYTES];
+    if (derive_encryption_key(key, sizeof key, password, strlen(password), salt) < 0 ) {
+        printf("Decryption key not derived successfully!");
+        exit(0);
+    };
+    
+    //read nonce seed
+    unsigned char seed[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES];
+    rlen = fread(seed, 1, crypto_aead_xchacha20poly1305_ietf_NPUBBYTES, fp_s);
+    if (rlen < crypto_aead_xchacha20poly1305_ietf_NPUBBYTES) {
+        printf("File read error!");
+        goto end;
+    }
+    
+    uint64_t seq_number = 0;
+    unsigned long long mlen;
+    
+    do {
+        rlen = fread(read_buf, 1, sizeof read_buf, fp_s);
+        unsigned long long clen = rlen;
+        unsigned char nonce[crypto_aead_xchacha20poly1305_ietf_NPUBBYTES];
+        calc_nonce(nonce, seed, seq_number);
+        if (crypto_aead_xchacha20poly1305_ietf_decrypt(plain, &mlen, NULL, (const unsigned char *)read_buf, rlen,
+                                                       NULL, 0, nonce, (const unsigned char *)key) < 0) {
+            printf("\nDecryption Error!");
+            goto end;
+        };
+        if (mlen != clen - crypto_aead_xchacha20poly1305_ietf_abytes()) {
+            printf("\nDecryption Error!");
+            goto end;
+        } else {
+            fwrite(plain, 1, (size_t) mlen, fp_t);
+            seq_number++;
+        }
+    } while (!feof(fp_s));
+    
+    printf("\n%s decrypted and saved in %s", source, target);
+    
+end:
+    fclose(fp_s);
+    fclose(fp_t);
     return;
 }
 
